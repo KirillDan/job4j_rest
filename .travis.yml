@@ -1,0 +1,16 @@
+language: java
+ 
+sudo: false
+  
+after_success:
+- export CODECOV_TOKEN="7f174c1e-538f-4fd1-af12-1db939cde802"
+- bash <(curl -s https://codecov.io/bash)
+  
+notifications:
+  email:
+    recipients:
+      - kirilldan94@mail.ru
+    on_success: never # default: change
+    on_failure: always # default: always
+
+  
