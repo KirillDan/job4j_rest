@@ -45,9 +45,8 @@ public class PersonController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@RequestBody Person person) {
-        this.persons.save(person);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        return ResponseEntity.ok().body(this.persons.save(person));
     }
 
     @DeleteMapping("/{id}")
