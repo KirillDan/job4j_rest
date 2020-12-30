@@ -25,8 +25,6 @@ import ru.job4j.auth.repository.PersonRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PersonControllerTest {
-	private static final String ROOT_URL = "http://localhost:";
-	
 	@Autowired
     private TestRestTemplate template;
 	@LocalServerPort

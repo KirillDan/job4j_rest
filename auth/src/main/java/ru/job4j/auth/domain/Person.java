@@ -1,9 +1,13 @@
 package ru.job4j.auth.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -13,16 +17,19 @@ public class Person {
     private String login;
     private String password;
     
-    public Person() {
+    @OneToMany
+    private List<Role> roles;   
+    @OneToMany
+    private List<Message> messages; 
+
+	public Person() {
 	}
     
 	public Person(String login, String password) {
 		this.login = login;
 		this.password = password;
 	}
-	
-	
-	
+		
 	public Person(int id, String login, String password) {
 		this(login, password);
 		this.id = id;
@@ -50,6 +57,36 @@ public class Person {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void add(Message message) {
+    	if (this.messages == null) {
+    		this.messages = new ArrayList<Message>();
+    	}
+    	this.messages.add(message);
+    }
+    
+    public List<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
+
+	public void add(Role role) {
+    	if (this.roles == null) {
+    		this.roles = new ArrayList<Role>();
+    	}
+    	this.roles.add(role);
+    }
+    
+    public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	@Override
@@ -88,6 +125,6 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", login=" + login + ", password=" + password + "]";
-	} 
+		return "Person [id=" + id + ", login=" + login + ", password=" + password + ", roles=" + roles + "]";
+	}
 }

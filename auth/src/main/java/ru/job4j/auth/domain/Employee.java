@@ -3,6 +3,7 @@ package ru.job4j.auth.domain;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -98,7 +99,19 @@ public class Employee {
 			this.accounts.remove(accountId);
 		}
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee user = (Employee) o;
+        return id == user.id;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", secondname=" + secondname + ", inn=" + inn + ", dateEmp="
