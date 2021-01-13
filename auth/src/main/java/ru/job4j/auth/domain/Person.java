@@ -7,29 +7,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String login;
-    private String password;
-    
-    @OneToMany
-    private List<Role> roles;   
-    @OneToMany
-    private List<Message> messages; 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private String login;
+	private String password;
+
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "role_id")
+	private Role role;
+	@OneToMany
+	@JsonIgnore
+	@JoinTable(name = "person_messages", joinColumns = { @JoinColumn(name = "person_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "messages_id") })
+	private List<Message> messages;
 
 	public Person() {
 	}
-    
+
 	public Person(String login, String password) {
 		this.login = login;
 		this.password = password;
 	}
-		
+
 	public Person(int id, String login, String password) {
 		this(login, password);
 		this.id = id;
@@ -58,15 +68,15 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public void add(Message message) {
-    	if (this.messages == null) {
-    		this.messages = new ArrayList<Message>();
-    	}
-    	this.messages.add(message);
-    }
-    
-    public List<Message> getMessages() {
+		if (this.messages == null) {
+			this.messages = new ArrayList<Message>();
+		}
+		this.messages.add(message);
+	}
+
+	public List<Message> getMessages() {
 		return messages;
 	}
 
@@ -74,19 +84,12 @@ public class Person {
 		this.messages = messages;
 	}
 
-	public void add(Role role) {
-    	if (this.roles == null) {
-    		this.roles = new ArrayList<Role>();
-    	}
-    	this.roles.add(role);
-    }
-    
-    public List<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override
@@ -98,7 +101,7 @@ public class Person {
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -125,6 +128,6 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", login=" + login + ", password=" + password + ", roles=" + roles + "]";
+		return "Person [id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + "]";
 	}
 }

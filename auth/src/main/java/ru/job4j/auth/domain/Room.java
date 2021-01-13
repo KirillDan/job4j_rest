@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -21,8 +23,11 @@ public class Room {
 	private Timestamp time;
 
 	@OneToOne
+	@JoinColumn(name = "person_creater")
 	private Person personWhoCreateRoom;
 	@OneToMany
+	@JoinTable(name = "room_messages", joinColumns = { @JoinColumn(name = "room_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "messages_id") })
 	private List<Message> messages;
 	
 	public static Room of(int id, String name, String description) {

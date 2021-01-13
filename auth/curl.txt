@@ -1,0 +1,18 @@
+curl -H "Content-Type: application/json" -X POST -d '{
+    "username": "ivan2",
+    "password": "123"
+}' http://localhost:8080/person
+
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    "login": "ivan",
+    "password": "123"
+}' http://localhost:8080/login
+
+curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpdmFuIiwiZXhwIjoyNDc0NTUxMTI1fQ.r6md4OvfY2Crs9IzAu8d8rhInKhHMMig7xn1YUKFO6I4QwmIO1Q5mo5zQXPdaTdvbVZe8JUW2wp784fXEuW8SQ" http://localhost:8080/person/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{
+    "login": "admin",
+    "password": "admin"
+}' http://localhost:8080/login
+
+curl -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MjQ3NDU1MjA0NX0.hBZFf9azTUv8LcdLCJSoF7XL5bmSXP_BtXidxhwLUGavqQXAxSZNpNeW6FwWt9Co5agkZdQPGngI0xgmVY9bmA" http://localhost:8080/person/
